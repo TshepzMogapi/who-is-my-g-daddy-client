@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Person } from '../person';
+import { PersonService } from '../services/person.service';
 
 @Component({
   selector: 'app-earliest-ascendant',
@@ -7,9 +9,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EarliestAscendantComponent implements OnInit {
 
-  constructor() { }
+  ancestor: Person[];
+
+  isLoading = false;
+  isError = false;
+  identityNumber = '';
+  constructor(private personService: PersonService) { }
 
   ngOnInit() {
   }
 
+  getAncestor(idNumber: string) {
+    this.isLoading = true;
+    this.isError = false;
+    this.personService.getAncestor(parseInt(idNumber))
+    .then(res => {
+      console.log(res);
+      
+      this.ancestor = res;
+      this.isLoading = false;
+
+
+    }).catch(err => {
+      console.log(err);
+      this.isError = true;
+      this.isLoading = false;
+
+    });
+  }
 }

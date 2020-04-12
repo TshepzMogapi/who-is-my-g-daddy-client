@@ -20,7 +20,20 @@ export class PersonService {
       .pipe(retry(1), catchError(this.errorHandler));
   }
 
-  getAllDescendants(personId: number) {}
+  getAllDescendants(personId: number) {
+    
+    return this.http
+      .get<Person[]>(this.apiBaseUrl 
+        + this.entityApiUrl + "/" + personId)
+      .pipe(retry(1), catchError(this.errorHandler)).toPromise();
+  }
+
+  getAncestor(personId: number) {
+    return this.http
+    .get<Person[]>(this.apiBaseUrl 
+      + "api/ancestors" + "/" + personId)
+    .pipe(retry(1), catchError(this.errorHandler)).toPromise();
+  }
 
   errorHandler(error) {
     let errorMessage = "";

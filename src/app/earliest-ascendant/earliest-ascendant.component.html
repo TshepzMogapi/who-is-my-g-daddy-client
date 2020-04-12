@@ -3,6 +3,7 @@
     <div class="col-6">
       <div class="row">
         <input
+          [(ngModel)]="identityNumber"
           class="form-control id-search-input col-8"
           type="number"
           name="search"
@@ -10,10 +11,24 @@
           placeholder="Enter Id Number"
         />
 
-        <button type="button" class="btn btn-success col-3">
+        <button 
+        (click)="getAncestor(identityNumber)"        
+        type="button" class="btn btn-success col-3">
           <i class="fa fa-search"></i> &nbsp; Search
         </button>
       </div>
     </div>
   </div>
+  <br>
+  <div *ngIf="isLoading" class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="isError" class="alert alert-danger" role="alert">
+    Something bad happened, it will be fixed soon!!!
+  </div>
+
+  <div>{{ancestor | json }}</div>
 </div>
