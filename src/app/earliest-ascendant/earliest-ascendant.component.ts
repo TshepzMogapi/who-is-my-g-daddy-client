@@ -9,7 +9,9 @@ import { PersonService } from '../services/person.service';
 })
 export class EarliestAscendantComponent implements OnInit {
 
-  ancestor: Person[];
+  ancestors: Person[] =[];
+
+  earlyAncestor: Person;
 
   isLoading = false;
   isError = false;
@@ -17,6 +19,13 @@ export class EarliestAscendantComponent implements OnInit {
   constructor(private personService: PersonService) { }
 
   ngOnInit() {
+  }
+  
+  showAncestor() {
+    this.ancestors = this.ancestors.sort((a, b) => new Date(a.BirthDate).getTime() - new Date(b.BirthDate).getTime());
+    this.earlyAncestor = this.ancestors[this.ancestors.length - 1];
+    console.log(this.earlyAncestor);
+    
   }
 
   getAncestor(idNumber: string) {
@@ -26,7 +35,8 @@ export class EarliestAscendantComponent implements OnInit {
     .then(res => {
       console.log(res);
       
-      this.ancestor = res;
+      this.ancestors = res.slice(1,);
+      this.earlyAncestor = this.ancestors[this.ancestors.length - 1];
       this.isLoading = false;
 
 
