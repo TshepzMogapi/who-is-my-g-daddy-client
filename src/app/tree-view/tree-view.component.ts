@@ -82,7 +82,7 @@ export class TreeViewComponent implements OnInit {
       var li = document.createElement('li');
 
       var a = document.createElement("a");
-      a.setAttribute('href', '#');
+      // a.setAttribute('href', '#');
       a.innerText = row.name
 
       li.appendChild(a);
