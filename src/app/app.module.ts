@@ -10,18 +10,25 @@ import { FamilyTreeViewerComponent } from './family-tree-viewer/family-tree-view
 import { EarliestAscendantComponent } from './earliest-ascendant/earliest-ascendant.component';
 import { PersonService } from './services/person.service';
 
+import { TreeViewComponent } from './tree-view/tree-view.component';
+import { SubTreeViewComponent } from './sub-tree-view/sub-tree-view.component';
+
+import { TreeModule } from 'angular-tree-component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FamilyTreeViewerComponent,
-    EarliestAscendantComponent
+    EarliestAscendantComponent,
+    TreeViewComponent,
+    SubTreeViewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TreeModule.forRoot()
   ],
   providers: [PersonService],
   bootstrap: [AppComponent]

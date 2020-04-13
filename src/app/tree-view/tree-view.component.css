@@ -1,26 +1,3 @@
-
-
-.content {
-    margin-top: 100px;
-}
-
-.form-control {
-    border: 1px solid #22874A ;
-}
-
-.form-control:focus {
-    border: 1px solid #22874A ;
-
-    box-shadow: inset 0 1px 1px #22874A , 0 0 8px#22874A ;
-
-} 
-
-.id-search-input {
-    font-size: 16px; height: fit-content; margin: auto;
-}
-
-
-
 /*Now the CSS*/
 * {margin: 0; padding: 0;}
 

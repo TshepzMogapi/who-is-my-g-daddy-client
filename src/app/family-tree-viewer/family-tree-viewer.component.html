@@ -37,7 +37,7 @@
     Something bad happened, it will be fixed soon!!!
   </div>
 
-  <div>
+  <div *ngIf="expression">
     <div class="card custom-card" *ngFor="let person of persons | slice:0:end;">
       <div class="card-body">{{ person.name }} &nbsp; {{ person.surname }}</div>
     </div>
@@ -50,5 +50,9 @@
     type="button" class="btn btn-success btn-lg btn-block col-12">
       <i class="fa fa-chevron-circle-down"></i> &nbsp;Load more descendants
     </button>
+  </div>
+
+  <div *ngIf="persons.length > 0">
+    <app-tree-view [data]="persons"></app-tree-view>
   </div>
 </div>
