@@ -53,6 +53,8 @@
   </div>
 
   <div *ngIf="persons.length > 0">
-    <app-tree-view [data]="persons"></app-tree-view>
+    <app-tree-view 
+    [parentIdNumber]="identityNumber"
+    [data]="persons"></app-tree-view>
   </div>
 </div>

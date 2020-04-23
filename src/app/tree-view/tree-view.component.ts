@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TreeViewComponent implements OnInit {
 
   @Input() data;
+  @Input() parentIdNumber;
 
   // treeViewData = {
   //   name: '',
@@ -33,9 +34,15 @@ export class TreeViewComponent implements OnInit {
 
   container = document.createElement('div');
 
+  parent;
+
+  identityNumber:string;
+
   constructor() { }
 
   ngOnInit() {
+
+    this.identityNumber = this.parentIdNumber.toString();
  
     const idMapping = this.data.reduce((acc, el, i) => {
       acc[el.id] = i;
@@ -44,14 +51,23 @@ export class TreeViewComponent implements OnInit {
   
     // let root;
     this.data.forEach(el => {
-      // Handle the root element
-      let parentId = el.motherId !== 0 ? el.motherId : el.fatherId;
-      if (parentId === 0) {
+
+      if (el.identityNumber === this.parentIdNumber.toString()) {
+        
         this.root = el;
         return;
       }
       // Use our mapping to locate the parent element in our data array
-      const parentEl = this.data[idMapping[parentId]];
+      //  if this.data is undefined use other parent
+      let parentEl;
+      if(idMapping[el.motherId] !== undefined) {
+        parentEl = this.data[idMapping[el.motherId]]
+      } else {
+        parentEl = this.data[idMapping[el.fatherId]]
+
+
+      }
+      
       // Add our current el to its parent's `children` array
       parentEl.children = [...(parentEl.children || []), el];
     });
@@ -82,12 +98,10 @@ export class TreeViewComponent implements OnInit {
       var li = document.createElement('li');
 
       var a = document.createElement("a");
-      // a.setAttribute('href', '#');
+      a.setAttribute('href', '#');
       a.innerText = row.name
 
       li.appendChild(a);
-
-   
 
       var nodes = row.children;
 
@@ -96,8 +110,6 @@ export class TreeViewComponent implements OnInit {
         this.createSublist(li, nodes);
 
       }
-
-      
 
       ul.appendChild(li);
 
@@ -108,8 +120,6 @@ export class TreeViewComponent implements OnInit {
  
 
   getChildren(parent) {
-
-    console.log(this.earlyParents);
     let children = this.data.filter(p => p.fatherId === parent.id || p.motherId == parent.id)
     // this.earlyParents = children;
     
